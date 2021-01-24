@@ -7,6 +7,10 @@ const createFighterValid = (req, res, next) => {
     try {
         if (req.body.hasOwnProperty('id')) throw Error('ID of the fighter already exists');
 
+        for (let key in req.body) {
+            if (!fighter.hasOwnProperty(key)) throw Error('Unknown property');
+        }
+
         const newFighterData = {};        
 
         for (let key in fighter) {
@@ -57,7 +61,7 @@ const updateFighterValid = (req, res, next) => {
 }
 
 const isPowerValid = (fighter) => {
-    if (!Number.isInteger(fighter.power) || fighter.power > 100) throw Error('Invalid power value');
+    if (!Number.isInteger(fighter.power) || fighter.power > 100 || fighter.power < 0) throw Error('Invalid power value');
     return true;
 }
 

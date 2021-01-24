@@ -7,6 +7,10 @@ const createUserValid = (req, res, next) => {
     try {
         if (req.body.hasOwnProperty('id')) throw Error('ID of the user already exists');
 
+        for (let key in req.body) {
+            if (!user.hasOwnProperty(key)) throw Error('Unknown property');
+        }
+
         const newUserData = {};        
 
         for (let key in user) {

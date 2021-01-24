@@ -13,9 +13,10 @@ class FighterService {
     }
 
     updateFighter(id, newData) {
+        if (!FighterRepository.getOne({ 'id': id })) throw Error('404 Fighter not found');
         const fighter = FighterRepository.update(id, newData);        
         if(!fighter) {
-            throw Error('404 Fighter not found');
+            throw Error('404 Fighter was not updated');
         }
         return fighter;
     }

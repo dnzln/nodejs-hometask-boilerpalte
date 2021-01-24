@@ -13,9 +13,10 @@ class UserService {
     }
 
     updateUser(id, newData) {
+        if (!UserRepository.getOne({ 'id': id })) throw Error('404 User not found');
         const user = UserRepository.update(id, newData);        
         if(!user) {
-            throw Error('404 User not found');
+            throw Error('404 User was not updated');
         }
         return user;
     }
